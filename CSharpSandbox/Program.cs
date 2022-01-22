@@ -12,15 +12,9 @@ using System.Diagnostics;
 class Solution
 {
 
-    static private string _key = "C33850DA003779D31492ADDBC4F3CDFB";
-    static private ulong _id = 76561198032665161;
-
     static public async Task Main(string[] args)
     {
-        //Rootobject a = await GetPrayerTime();
-        //Console.WriteLine(a.data.dhohr.ToString());
-        DateTime dateTime = DateTime.Now;
-        Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd"));
+
         Console.WriteLine("Program started");
         DeserializingWissemObject class1 = new DeserializingWissemObject();
         class1.DeserializeWissem();

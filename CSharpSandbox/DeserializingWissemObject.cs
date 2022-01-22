@@ -8,8 +8,10 @@ namespace learning_cSharp
     {
         string path = @"C:\Users\comp\Downloads\info.txt";
         string text = "";
-        int line = 0;
+        int nullDelegates = 0;
         List<Rootobject> rootobjects = new List<Rootobject>();
+
+        //deserializes the file my friend sent :kms:
         public void DeserializeWissem()
         {
             Console.WriteLine("Reading data...");
@@ -26,13 +28,17 @@ namespace learning_cSharp
             GetAllData();
         }
 
+        //deserializes the string and adds it to rootobject
         private void desrialize()
         {
             rootobjects.Add(JsonConvert.DeserializeObject<Rootobject>(text));
             text = "";
         }
 
-        //fuck you wissem
+        /*
+         sends get requests and saves all the data in in a list of rootObject2 named task
+         
+         */
         private async void GetAllData()
         {
             Console.WriteLine("Getting Data from the web and saving it");
@@ -50,13 +56,13 @@ namespace learning_cSharp
                     restClient = new RestClient(url);
                     task.Add(await restClient.GetAsync<Rootobject2>(request));
 
-
+                    //if the json requested is null it deletes it from my list and decrements the counter
                     if (task[counter].data == null)
                     {
-                        line++;
+                        nullDelegates++;
                         task.RemoveAt(counter);
                         counter--;
-                        Console.WriteLine(line + " delegates with no data");
+                        Console.WriteLine(nullDelegates + " delegates with no data");
                         Task.Delay(1000).Wait();
                     }
                     counter++;
@@ -66,6 +72,7 @@ namespace learning_cSharp
             Organize(task);
         }
 
+        //it sorts the data from the previous list into a new list, states, then calls a function to serialize it 
         private void Organize(List<Rootobject2> ob)
         {
             Console.WriteLine("organizing the data");
@@ -99,6 +106,7 @@ namespace learning_cSharp
             serialize(states);
         }
 
+        //serializes everything to a nice json file
         private async void serialize(List<Rootobject3> states)
         {
             Console.WriteLine("serializing data");
